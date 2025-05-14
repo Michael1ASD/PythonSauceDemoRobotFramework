@@ -7,10 +7,10 @@ ${url}                      https://www.saucedemo.com/
 
 *** Keywords ***
 Open Browser According To Variable
-    [Arguments]    ${browser}=chrome
+    [Arguments]    ${browser}
     IF    '${browser}'=='chrome'
         ${selenium}=    Evaluate       sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-#        Call Method     ${selenium}    add_argument    --headless
+        Call Method     ${selenium}    add_argument    --headless
         Call Method     ${selenium}    add_argument    --disable-popup-blocking
         Call Method     ${selenium}    add_argument    --disable-infobars
         Call Method     ${selenium}    add_argument    --disable-dev-shm-usage
@@ -20,13 +20,13 @@ Open Browser According To Variable
 
     ELSE IF    '${browser}'=='firefox'
         ${firefox_options}=    Evaluate       sys.modules['selenium.webdriver'].FirefoxOptions()    sys, selenium.webdriver
-#        Call Method     ${firefox_options}    add_argument    --headless
+        Call Method     ${firefox_options}    add_argument    --headless
         Call Method     ${firefox_options}    add_argument    --start-maximized
         Open Browser    ${url}                firefox         options=${firefox_options}
 
     ELSE IF    '${browser}'=='edge'
         ${edge_options}=    Evaluate       sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
-#        Call Method     ${edge_options}    add_argument    --headless
+        Call Method     ${edge_options}    add_argument    --headless
         Call Method     ${edge_options}    add_argument    --disable-popup-blocking
         Call Method     ${edge_options}    add_argument    --start-maximized
         Open Browser    ${url}             edge            options=${edge_options}

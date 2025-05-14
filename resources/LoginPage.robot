@@ -36,7 +36,7 @@ Login
     Click Login Button
 
 Open browser and login
-    Open Browser According To Variable
+    Open Browser According To Variable  ${browser}
     Open Login Page
     Login
 
