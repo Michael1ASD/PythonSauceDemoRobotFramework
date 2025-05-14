@@ -52,7 +52,8 @@ Finish Checkout
 
 Return Cart Total Net Value
     ${value}=    Get Text           ${total_net_value}
-    ${value_without_dollar}=    Remove String    ${value}    $
+    ${value_str}=    Convert to String    ${value}
+    ${value_without_dollar}=    Remove String    ${value_str}    $
     RETURN       ${value_without_dollar}
 
 Return Cart Total Tax Value

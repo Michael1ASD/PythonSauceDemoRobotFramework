@@ -5,7 +5,7 @@ Resource          ../resources/ExpandedList.robot
 Resource          ../resources/AllItems.robot
 Resource          ../resources/Cart.robot
 Resource          ../resources/ProductDetails.robot
-Test Setup        Open Browser And Navigate To Login Page
+Test Setup        Open Browser And Login
 Test Teardown     Logout and close browser
 
 *** Variables ***

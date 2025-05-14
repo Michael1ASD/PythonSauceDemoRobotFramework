@@ -2,16 +2,38 @@
 Library                     SeleniumLibrary
 Library                     BuiltIn
 
+*** Variables ***
+${url}                      https://www.saucedemo.com/
+
 *** Keywords ***
-Create Chrome Options
-    ${selenium}=            Evaluate        sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    Call Method             ${selenium}     add_argument    --headless
-    Call Method             ${selenium}     add_argument    --enable-logging
-    Call Method             ${selenium}     add_argument    --disable-popup-blocking
-    Call Method             ${selenium}     add_argument    --disable-infobars
-    Call Method             ${selenium}     add_argument    --disable-dev-shm-usage
-    Call Method             ${selenium}     add_argument    --start-maximized
-    RETURN                  ${selenium}
+Open Browser According To Variable
+    [Arguments]    ${browser}=chrome
+    IF    '${browser}'=='chrome'
+        ${selenium}=    Evaluate       sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+#        Call Method     ${selenium}    add_argument    --headless
+        Call Method     ${selenium}    add_argument    --disable-popup-blocking
+        Call Method     ${selenium}    add_argument    --disable-infobars
+        Call Method     ${selenium}    add_argument    --disable-dev-shm-usage
+        Call Method     ${selenium}    add_argument    --start-maximized
+        Call Method     ${selenium}    add_argument    --mute-audio
+        Open Browser    ${url}         chrome      options=${selenium}
+
+    ELSE IF    '${browser}'=='firefox'
+        ${firefox_options}=    Evaluate       sys.modules['selenium.webdriver'].FirefoxOptions()    sys, selenium.webdriver
+#        Call Method     ${firefox_options}    add_argument    --headless
+        Call Method     ${firefox_options}    add_argument    --start-maximized
+        Open Browser    ${url}                firefox         options=${firefox_options}
+
+    ELSE IF    '${browser}'=='edge'
+        ${edge_options}=    Evaluate       sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
+#        Call Method     ${edge_options}    add_argument    --headless
+        Call Method     ${edge_options}    add_argument    --disable-popup-blocking
+        Call Method     ${edge_options}    add_argument    --start-maximized
+        Open Browser    ${url}             edge            options=${edge_options}
+
+    ELSE
+        Fail    Unsupported browser: ${browser}
+    END
 
 Wait For Element And Find It
     [Arguments]             ${locator}
@@ -44,5 +66,6 @@ Get Element Text
 
 Should Value Be In Text
     [Arguments]             ${value}                ${text}
-    Should Contain          ${text}                 ${value}
+    ${value_str}=   Convert To String    ${value}
+    Should Contain          ${text}                 ${value_str}
 

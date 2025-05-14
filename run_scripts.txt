@@ -1,3 +1,15 @@
+robot --variable BROWSER:chrome tests/
+robot --variable BROWSER:edge tests/
+robot --variable BROWSER:firefox tests/
+
+
+
+
+
+
+
+
+
 Allure run script with reports:
 1.  reports:
 $env:APP_ENV='dev'; pytest --alluredir=reports test_cases/test_login.py

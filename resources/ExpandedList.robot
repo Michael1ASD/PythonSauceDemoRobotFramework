@@ -15,10 +15,12 @@ ${burger_close_button}   xpath=//button[@id='react-burger-cross-btn']
 
 *** Keywords ***
 Expand Burger Menu
-    Click Element    ${burger_open_button}
+    Wait Until Element Is Visible       ${burger_open_button}
+    Click Element                       ${burger_open_button}
 
 Collapse Burger Menu
-    Click Element    ${burger_close_button}
+    Wait Until Element Is Visible       ${burger_close_button}
+    Click Element                       ${burger_close_button}
 
 Select Option From Burger
     [Arguments]    ${option_key}
